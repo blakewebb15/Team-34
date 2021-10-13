@@ -1,0 +1,11 @@
+.refs, .games {
+    text-align: left;
+    font-weight: bold;
+    font-size:larger;
+}
+
+.footer {
+    text-align: center;
+    /* font-weight: bold; */
+    color: white;
+}
