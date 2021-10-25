@@ -11,7 +11,15 @@ const gameApp = {
     methods: {
         prettyData(d) {
             return dayjs(d)
-            .format('D MMM YYYY')
+            .format('MMM D, YYYY')
+        },
+        selectGame(g) {
+            if (g == this.selectedGame) {
+                return;
+            }
+            this.selectedGame = g;
+            // this.games = [];
+            // this.fetchOfferData(this.selectedStudent);
         },
         fetchGameData() {
             fetch('/api/game/index.php')

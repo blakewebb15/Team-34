@@ -6,7 +6,7 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT g.title, g.field, CONCAT(g.gDate,", ",g.time) as date, CONCAT(r.fName," ",r.lName) as ref FROM game as g, referee as r, 
+$sql = 'SELECT g.title, g.field, g.gDate, g.time, CONCAT(r.fName," ",r.lName) as ref FROM game as g, referee as r, 
 assignment as a WHERE a.refID = r.refID and a.gameID = g.gameID';
 $vars = [];
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -18,90 +18,113 @@
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./index.html">ISRA</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="./referees.html">Our Referees</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="./games.html">Upcoming Games</a>
-          </li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./index.html"><img src="img/favicon-32x32.png"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="./index.html">Finalized Games</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="./referees.html">Our Referees</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./games.html">Our Games</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
   
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
  
   <body>
-  <img src="img/ISRA_games.jfif" alt="game" class="image-responsive" height="500 px">
-      
-  <div id="gameApp" class="container row col-lg-12 text-center">
-      <table class="table table-hover table-light" >
+
+    <div id="gameApp" class="container row col-lg-12 text-center">
+    
+      <div class="col col-4">
+        <span class="refs">Upcoming Games</span><br><br>
+        <!-- <p>Profile information for {{ person.name.first }}</p> -->
+        <div v-for="g in games" v-on:click="selectGame(g)"
+        :class="['game', {selected: selectedGame && g.gameID == selectedGame.gameID}]">
+          <span class="gameField">{{ g.title }}</span><br>
+          <span class="gameName">{{ g.field }}</span><br>
+          <span class="gameName">{{ prettyData(g.gDate) }} at {{g.time}}</span>
+        </div><br><br>
+
+        <span class="refs">Schedule New Game</span><br><br>
+
+        <form class="bg-light" v-on:submit.prevent="postNewGame">
+          <div class="form-item-format row mb-2">
+            <label for="title" class="col-sm-2 col-form-label">Game Title</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="gameForm.title" class="form-control" placeholder="Title" id="title">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2 mb-2">
+            <label for="field" class="col-sm-2 col-form-label">Field</label>
+            <div class="col-sm-10">
+                <input type="text" v-model="gameForm.field" class="form-control" placeholder="Field" id="field">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="date" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-10">
+              <input type="date" v-model="gameForm.date" class="form-control" placeholder="Date" id="date">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="time" class="col-sm-2 col-form-label">Time</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="gameForm.time" class="form-control" placeholder="Time" id="time">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Game</button>
+          </form><br><br>
+      </div>
+
+    
+        
+      <div class = "col">
+      <table class="table table-hover table-light" v-if="selectedGame">
           <thead>
-            <span class="refs">Upcoming Games</span><br><br>
               <tr>
-                  <th scope="col">Title</th>
-                  <th scope="col">Field</th>
-                  <th scope="col">Date/Time</th>
+                  <th scope="col">{{ selectedGame.title }}</th>
+                  <th scope="col">{{ selectedGame.field }}</th>
+                  <th scope="col">{{ prettyData(selectedGame.gDate) }} at {{ selectedGame.time }}</th>
+                  <th><button type="button" v-on:click= "handleEditOffer(offer)" class="btn btn-outline-secondary btn-small">Edit</button>
+                    <button type="button" v-on:click= "postDeleteOffer(offer)" class="btn btn-outline-secondary btn-small">Delete</button></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="game in games">
-                <td>{{ game.title }}</td>
-                <td>{{ game.field }}</td>
-                <td>{{ prettyData(game.gDate) }}, {{ game.time }}</td>
+              <!-- <tr>
+                <td>{{ selectedGame.title }}</td>
+                <td>{{ selectedGame.field }}</td>
+                <td>{{ prettyData(selectedGame.gDate) }} at {{ selectedGame.time }}</td>
                 <td>
                   <button type="button" v-on:click= "handleEditOffer(offer)" class="btn btn-outline-secondary btn-small">Edit</button>
                   <button type="button" v-on:click= "postDeleteOffer(offer)" class="btn btn-outline-secondary btn-small">Delete</button> 
                 </td>
-              </tr>          
+              </tr>           -->
             </tbody>
       </table>
-   
- 
-  <form class="bg-light" v-on:submit.prevent="postNewGame">
-  <div class="form-item-format row mb-2">
-    <label for="title" class="col-sm-2 col-form-label">Game Title</label>
-    <div class="col-sm-10">
-      <input type="text" v-model="gameForm.title" class="form-control" placeholder="Title" id="title">
+    
+  
+      
+      <img src="img/ISRA_games.jfif" alt="game" class="image-responsive" height="500 px">
+
     </div>
-  </div>
-  <div class="form-item-format row mb-2 mb-2">
-    <label for="field" class="col-sm-2 col-form-label">Field</label>
-    <div class="col-sm-10">
-        <input type="text" v-model="gameForm.field" class="form-control" placeholder="Field" id="field">
+
+    
     </div>
-  </div>
-  <div class="form-item-format row mb-2">
-    <label for="date" class="col-sm-2 col-form-label">Date</label>
-    <div class="col-sm-10">
-      <input type="date" v-model="gameForm.date" class="form-control" placeholder="Date" id="date">
-    </div>
-  </div>
-  <div class="form-item-format row mb-2">
-    <label for="time" class="col-sm-2 col-form-label">Time</label>
-    <div class="col-sm-10">
-      <input type="text" v-model="gameForm.time" class="form-control" placeholder="Time" id="time">
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">{{ selectedGame === null ? "Schedule " : "Edit " }} Game</button>
-  <button type="button" class="btn btn-primary" v-if="selectedGame" v-on:click="handleResetEdit">Cancel</button>
-  </form>
-</div>
 
 
-<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-<script src="./js/game.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="./js/game.js"></script>
 </body>
   
 <footer>

@@ -9,7 +9,7 @@ const gameApp = {
     methods: {
         prettyData(d) {
             return dayjs(d)
-            .format('D MMM YYYY')
+            .format('MMM D, YYYY')
         },
         fetchGameData() {
             fetch('/api/assignments/index.php')
