@@ -8,6 +8,9 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
+  <!-- VueJs link -->
+  <script src="https://unpkg.com/vue@next"></script>
+
   <title>Indiana Soccer Referees Association</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -28,12 +31,8 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" aria-current="page" href="./games.html">Upcoming Games</a>
-          </li>
+        </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>
@@ -46,46 +45,29 @@
     <div class="container">
       <img src="img/ISRA.jfif" alt="football" class="image-responsive" width="50%" height="50%">
       <h1>Indiana Soccer Referees Association</h1><br>
-      <div id="offerApp" class="row col-lg-12 text-center">
+      <div id="gameApp" class="row col-lg-12 text-center">
         <hr>
         <table id="books" class="table table-hover table-light" >
-            <thead>
+              <thead>
                 <tr>
-                    <th scope="col">Assignment ID</th>
-                    <th scope="col">Game ID</th>
-                    <th scope="col">Referee ID</th>
-                    <th scope="col">Assignment Status</th>
+                    <th scope="col">Game</th>
+                    <th scope="col">Field</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Referee</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="a in assgn">
-                  <td>301</td>
-                  <td>101</td>
-                  <td>201</td>
-                  <td>Assigned</td>
-                </tr>
-                <tr v-for="a in assgn">
-                    <td>302</td>
-                    <td>102</td>
-                    <td>202</td>
-                    <td>Unassigned</td>
-                  </tr>
-                  <tr v-for="a in assgn">
-                    <td>303</td>
-                    <td>103</td>
-                    <td>202</td>
-                    <td>Tentative</td>
-                  </tr>
-                  <tr v-for="a in assgn">
-                    <td>304</td>
-                    <td>103</td>
-                    <td>203</td>
-                    <td>Assigned</td>
-                  </tr>         
+                <tr v-for="game in games">
+                  <td>{{ game.title }}</td>
+                  <td>{{ game.field }}</td>
+                  <td>{{ game.date }}</td>
+                  <td>{{ game.ref }}</td>
+                </tr>         
               </tbody>
         </table>
      </div>
     </div>
+    <script src="./js/index.js"></script>
   
   </body>
 
