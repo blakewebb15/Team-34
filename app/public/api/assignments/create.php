@@ -31,15 +31,13 @@ $db = DbConnection::getConnection();
 // Step 2: Create & run the query
 // Note the use of parameterized statements to avoid injection
 $stmt = $db->prepare(
-  'INSERT INTO game (field, time , title, gDate)
-  VALUES (?, ?, ?, ?)'
+  'INSERT INTO assignment (refID, gameID, status)
+  VALUES (?, ?, "Assigned")'
 );
 
 $stmt->execute([
-  $_POST['field'],
-  $_POST['time'],
-  $_POST['title'],
-  $_POST['gDate']
+  $_POST['refID'],
+  $_POST['gameID']
 ]);
 
 // Get auto-generated PK from DB
@@ -49,5 +47,5 @@ $stmt->execute([
 // Step 4: Output
 // Here, instead of giving output, I'm redirecting to the SELECT API,
 // just in case the data changed by entering it
-// header('HTTP/1.1 303 See Other');
-// header('Location: ../offer/?student=' . $_POST['studentId']);
+header('HTTP/1.1 303 See Other');
+header('Location: ../assignments/index.php');

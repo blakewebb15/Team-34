@@ -43,10 +43,62 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
  
   <body>
+<<<<<<< Updated upstream
   <img src="img/ISRA_games.jfif" alt="game" class="image-responsive" height="500 px">
       
   <div id="gameApp" class="container row col-lg-12 text-center">
       <table class="table table-hover table-light" >
+=======
+
+    <div id="gameApp" class="container row col-lg-12 text-center">
+    
+      <div class="col col-4">
+        <span class="refs">Upcoming Games</span><br><br>
+        <!-- <p>Profile information for {{ person.name.first }}</p> -->
+        <div v-for="g in games" v-on:click="selectGame(g)"
+        :class="['game', {selected: selectedGame && g.gameID == selectedGame.gameID}]">
+          <span class="gameField">{{ g.title }}</span><br>
+          <span class="gameName">{{ g.field }}</span><br>
+          <span class="gameName">{{ prettyData(g.gDate) }} at {{g.time}}</span>
+        </div><br><br>
+
+        <span class="refs">Schedule New Game</span><br><br>
+
+        <form class="bg-light" v-on:submit.prevent="postNewGame">
+          <div class="form-item-format row mb-2">
+            <label for="title" class="col-sm-2 col-form-label">Game Title</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="gameForm.title" class="form-control" placeholder="Title" id="title">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2 mb-2">
+            <label for="field" class="col-sm-2 col-form-label">Field</label>
+            <div class="col-sm-10">
+                <input type="text" v-model="gameForm.field" class="form-control" placeholder="Field" id="field">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="date" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-10">
+              <input type="date" v-model="gameForm.date" class="form-control" placeholder="Date" id="date">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="time" class="col-sm-2 col-form-label">Time</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="gameForm.time" class="form-control" placeholder="Time" id="time">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Game</button>
+          </form><br><br>
+      </div>
+
+    
+        
+      <div class = "col" v-if = "selectedGame">
+      <h3> Assignments for {{selectedGame.title}}</h3>
+      <table class="table table-hover table-light">
+>>>>>>> Stashed changes
           <thead>
             <span class="refs">Upcoming Games</span><br><br>
               <tr>
@@ -67,6 +119,7 @@
               </tr>          
             </tbody>
       </table>
+<<<<<<< Updated upstream
    
  
   <form class="bg-light" v-on:submit.prevent="postNewGame">
@@ -74,6 +127,31 @@
     <label for="title" class="col-sm-2 col-form-label">Game Title</label>
     <div class="col-sm-10">
       <input type="text" v-model="gameForm.title" class="form-control" placeholder="Title" id="title">
+=======
+      <div v-for="a in assign" v-on:click="selectGame(g)">
+          <span class="gameField">{{a.fName}} {{a.lName}}</span><br>
+          <span class="gameName">{{a.status}}</span><br>
+          <span class="gameName"><button type="button" v-on:click= "postDeleteAssignment(a)" class="btn btn-outline-secondary btn-sm">Delete</button></span><br>
+      </div><br><br>
+      
+      <h3>Add New Assignment</h3>
+
+      <form v-on:submit.prevent="postNewAssignment">  
+          <div class="bg-light">
+            <label for="refID" class="form-label">Referee: </label>
+            <select name="refID" id="refID"  v-model="refForm.refID">
+              <option v-for="r in refs" v-bind:value="r.refID">{{r.fName}} {{r.lName}}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Assignment</button>
+      </form>
+        
+    
+  
+      
+      <img src="img/ISRA_games.jfif" alt="game" class="image-responsive" height="500 px">
+
+>>>>>>> Stashed changes
     </div>
   </div>
   <div class="form-item-format row mb-2 mb-2">
