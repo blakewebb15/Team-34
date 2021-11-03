@@ -6,7 +6,7 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT title, field, gDate, time, headRef, refTwo, refThree from game';
+$sql = 'SELECT title, field, gDate, time from game';
 
 $vars = [];
 

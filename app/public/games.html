@@ -90,6 +90,7 @@
     
         
       <div class = "col">
+      <h3 v-if="selectedGame"> Assignments for {{selectedGame.title}}</h3>
       <table class="table table-hover table-light" v-if="selectedGame">
           <thead>
               <tr>
@@ -112,6 +113,13 @@
               </tr>           -->
             </tbody>
       </table>
+      <div v-for="g in games" v-on:click="selectGame(g)"
+        :class="['game', {selected: selectedGame && g.gameID == selectedGame.gameID}]">
+          <span class="gameField">{{ g.title }}</span><br>
+          <span class="gameName">{{ g.field }}</span><br>
+          <span class="gameName">{{ prettyData(g.gDate) }} at {{g.time}}</span>
+        </div><br><br>
+      
     
   
       
