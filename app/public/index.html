@@ -43,8 +43,8 @@
   <body>
 
     <div class="container">
-      <h1>Indiana Soccer Referees Association</h1><br>
       <div id="gameApp" class="row col-lg-12 text-center">
+        <h1>Indiana Soccer Referees Association</h1><br>
         <hr>
         <table id="books" class="table table-hover table-light" >
               <thead>
@@ -52,7 +52,9 @@
                     <th scope="col">Game</th>
                     <th scope="col">Field</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Referee</th>
+                    <th scope="col">Head Referee</th>
+                    <th scope="col">Assistant Referee</th>
+                    <th scope="col"> Assistant Referee</th>
                 </tr>
               </thead>
               <tbody>
@@ -60,7 +62,9 @@
                   <td>{{ game.title }}</td>
                   <td>{{ game.field }}</td>
                   <td>{{ prettyData(game.gDate)}} at {{game.time }}</td>
-                  <td>{{ game.ref }}</td>
+                  <td>{{ game.headRef }}</td>
+                  <td>{{ game.refTwo === null ? "Unassigned" : game.refTwo }}</td>
+                  <td>{{ game.refThree === null ? "Unassigned" : game.refThree }}</td>
                 </tr>         
               </tbody>
         </table>
