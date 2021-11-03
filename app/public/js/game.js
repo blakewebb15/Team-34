@@ -49,33 +49,6 @@ const gameApp = {
             // reset the form
             this.gameForm = {};
             this.fetchGameData();
-        },
-        postDeleteGame(g){ 
-            console.log("Deleting:", this.gameForm);
-            // alert("Posting!");
-            if(!confirm("Are you sure you want to delete the offer from" + g.title + "?")){
-                return;
-            }
-    
-            fetch('api/game/delete.php', {
-                method:'POST',
-                body: JSON.stringify(g),
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8"
-                }
-              })
-              .then( response => response.json() )
-              .then( json => {
-                console.log("Returned from post:", json);
-                // TODO: test a result was returned!
-                this.games = json;
-                
-                // reset the form
-                this.selectedGame = null;
-                this.gameForm = {};
-              });
-            this.fetchGameData();
-  
         }
         
 

@@ -98,7 +98,7 @@
                   <th scope="col">{{ selectedGame.field }}</th>
                   <th scope="col">{{ prettyData(selectedGame.gDate) }} at {{ selectedGame.time }}</th>
                   <th><button type="button" v-on:click= "handleEditOffer(offer)" class="btn btn-outline-secondary btn-small">Edit</button>
-                    <button type="button" v-on:click= "postDeleteGame(selectedGame)" class="btn btn-outline-secondary btn-small">Delete</button></th>
+                    <button type="button" v-on:click= "postDeleteOffer(offer)" class="btn btn-outline-secondary btn-small">Delete</button></th>
               </tr>
             </thead>
             <tbody>
