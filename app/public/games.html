@@ -89,9 +89,9 @@
 
     
         
-      <div class = "col">
+      <div class = "col" v-if="selectedGame">
       <h3 v-if="selectedGame"> Assignments for {{selectedGame.title}}</h3>
-      <table class="table table-hover table-light" v-if="selectedGame">
+      <table class="table table-hover table-light">
           <thead>
               <tr>
                   <th scope="col">{{ selectedGame.title }}</th>
@@ -113,12 +113,31 @@
               </tr>           -->
             </tbody>
       </table>
-      <div v-for="g in games" v-on:click="selectGame(g)"
-        :class="['game', {selected: selectedGame && g.gameID == selectedGame.gameID}]">
-          <span class="gameField">{{ g.title }}</span><br>
-          <span class="gameName">{{ g.field }}</span><br>
-          <span class="gameName">{{ prettyData(g.gDate) }} at {{g.time}}</span>
-        </div><br><br>
+      <div v-for="a in assign">
+          <span class="gameField">{{ a.fName }} {{ a.lName }}</span><br>
+          <span class="gameName">{{ a.status }}</span><br>
+        <form v-on:submit.prevent="postDeleteAssign(a)">
+          <button type="submit" class="btn btn-outline-secondary btn-small">Delete</button>
+        </form>
+      </div><br><hr>
+
+        <div>
+          <div>
+            <span class="refs">Assign a Referee</span><br>
+
+          <label for="refID" class="col-sm-2 col-form-label">Referee: </label>
+          <select name="refs" id="refID" v-model="refForm.refID">
+          <option v-bind:value="r.refID" v-for="r in refs"> {{r.fName}} {{r.lName}}</option> 
+          </select>
+          <form v-on:submit.prevent="postNewAssign(a)">
+            <button type="submit" class="btn btn-outline-secondary btn-small">Add Referee</button>
+          </form>
+          </div>
+          
+        </div>
+
+
+      </div><br><br>
       
     
   
