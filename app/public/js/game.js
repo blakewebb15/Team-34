@@ -6,7 +6,9 @@ const gameApp = {
           selectedGame: null,
           assign: [],
           refs: [],
-          refForm: {}
+          refForm: {},
+          edit: false,
+          editForm: {}
         
         }
     },
@@ -20,11 +22,25 @@ const gameApp = {
             if (g == this.selectedGame) {
                 return;
             }
+            this.edit = false;
             this.selectedGame = g;
             this.fetchAssignData(g);
             this.fetchRefData();
             // this.games = [];
             // this.fetchOfferData(this.selectedStudent);
+        },
+        handleEditGame(evt) {
+            if (this.edit) {
+                return;
+            }
+            this.edit = true;
+            this.editForm = Object.assign({}, this.selectedGame);
+            // this.games = [];
+            // this.fetchOfferData(this.selectedStudent);
+        },
+        editGame(evt) {
+            console.log("Passed from html",evt);
+            this.postEditGame(evt);
         },
         fetchGameData() {
             fetch('/api/game/index.php')
@@ -111,6 +127,31 @@ const gameApp = {
                 this.assign= json;
                 
                 
+              });
+        },
+        postEditGame(evt) {
+            this.editForm.gameID= this.selectedGame.gameID; 
+
+            
+            console.log("Editing!", this.editForm);
+    
+            fetch('api/game/update.php', {
+                method:'POST',
+                body: JSON.stringify(this.editForm),
+                headers: {
+                  "Content-Type": "application/json; charset=utf-8"
+                }
+              })
+              .then( response => response.json() )
+              .then( json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.games = json;
+                
+                // reset the form
+                this.edit = false;
+                this.editForm = {};
+                this.selectedGame = null;
               });
         },
         postNewGame(evt) {  

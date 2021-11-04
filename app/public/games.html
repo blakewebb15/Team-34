@@ -97,32 +97,22 @@
                   <th scope="col">{{ selectedGame.title }}</th>
                   <th scope="col">{{ selectedGame.field }}</th>
                   <th scope="col">{{ prettyData(selectedGame.gDate) }} at {{ selectedGame.time }}</th>
-                  <th><button type="button" v-on:click= "handleEditOffer(offer)" class="btn btn-outline-secondary btn-small">Edit</button>
-                    <button type="button" v-on:click= "postDeleteOffer(offer)" class="btn btn-outline-secondary btn-small">Delete</button></th>
+                  <th><button type="button" v-on:click= "handleEditGame(selectedGame)" class="btn btn-outline-secondary btn-small">Edit</button>
+                    <button type="button" v-on:click= "postDeleteGame(selectedGame)" class="btn btn-outline-secondary btn-small">Delete</button></th>
               </tr>
             </thead>
-            <tbody>
-              <!-- <tr>
-                <td>{{ selectedGame.title }}</td>
-                <td>{{ selectedGame.field }}</td>
-                <td>{{ prettyData(selectedGame.gDate) }} at {{ selectedGame.time }}</td>
-                <td>
-                  <button type="button" v-on:click= "handleEditOffer(offer)" class="btn btn-outline-secondary btn-small">Edit</button>
-                  <button type="button" v-on:click= "postDeleteOffer(offer)" class="btn btn-outline-secondary btn-small">Delete</button> 
-                </td>
-              </tr>           -->
-            </tbody>
       </table>
-      <div v-for="a in assign">
+      <div v-for="a in assign" v-if="edit != true">
           <span class="gameField">{{ a.fName }} {{ a.lName }}</span><br>
           <span class="gameName">{{ a.status }}</span><br>
         <form v-on:submit.prevent="postDeleteAssign(a)">
-          <button type="submit" class="btn btn-outline-secondary btn-small">Delete</button>
+          <button type="submit" class="btn btn-outline-secondary btn-sm">Delete</button>
         </form>
-      </div><br><hr>
+      </div>
 
         <div>
-          <div>
+          <div v-if="edit != true">
+            <br><hr>
             <span class="refs">Assign a Referee</span><br>
 
           <label for="refID" class="col-sm-2 col-form-label">Referee: </label>
@@ -130,10 +120,43 @@
           <option v-bind:value="r.refID" v-for="r in refs"> {{r.fName}} {{r.lName}}</option> 
           </select>
           <form v-on:submit.prevent="postNewAssign(a)">
-            <button type="submit" class="btn btn-outline-secondary btn-small">Add Referee</button>
+            <button type="submit" class="btn btn-outline-secondary btn-sm">Add Referee</button>
           </form>
           </div>
           
+        </div>
+
+
+
+
+        <div v-if="edit">
+        <form class="bg-light" v-on:submit.prevent="editGame">
+          <div class="form-item-format row mb-2">
+            <label for="title" class="col-sm-2 col-form-label">Game Title</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="editForm.title" class="form-control" placeholder="Title" id="title">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2 mb-2">
+            <label for="field" class="col-sm-2 col-form-label">Field</label>
+            <div class="col-sm-10">
+                <input type="text" v-model="editForm.field" class="form-control" placeholder="Field" id="field">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="gDate" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-10">
+              <input type="date" v-model="editForm.gDate" class="form-control" placeholder="Date" id="gDate">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="time" class="col-sm-2 col-form-label">Time</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="editForm.time" class="form-control" placeholder="Time" id="time">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+          </form><br><br>
         </div>
 
 
