@@ -43,6 +43,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
  
   <body>
+    <div class = "d-flex justify-content-center">
 
     <div id="gameApp" class="container row col-lg-12 text-center">
     
@@ -90,7 +91,7 @@
     
         
       <div class = "col" v-if="selectedGame">
-      <h3 v-if="selectedGame"> Assignments for {{selectedGame.title}}</h3>
+      <h3 v-if="selectedGame"> Assignments for {{selectedGame.title}}</h3><br>
       <table class="table table-hover table-light">
           <thead>
               <tr>
@@ -156,6 +157,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" v-on:click= "handleCancelEdit()" class="btn btn-outline-secondary btn-small">Cancel</button>
           </form><br><br>
         </div>
 
@@ -175,6 +177,8 @@
 
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <script src="./js/game.js"></script>
+
+  </div>
 </body>
   
 <footer>

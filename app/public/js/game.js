@@ -38,6 +38,9 @@ const gameApp = {
             // this.games = [];
             // this.fetchOfferData(this.selectedStudent);
         },
+        handleCancelEdit() {
+            this.edit = false;
+        },
         editGame(evt) {
             console.log("Passed from html",evt);
             this.postEditGame(evt);
