@@ -154,6 +154,29 @@ const gameApp = {
                 this.selectedGame = null;
               });
         },
+        postDeleteGame(o) {  
+            if ( !confirm("Are you sure you want to delete " + o.title + "?") ) {
+                return;
+            }  
+            
+            console.log("Delete!", o);
+    
+            fetch('api/game/delete.php', {
+                method:'POST',
+                body: JSON.stringify(o),
+                headers: {
+                  "Content-Type": "application/json; charset=utf-8"
+                }
+              })
+              .then( response => response.json() )
+              .then( json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.games = json;
+                this.selectedGame = null;
+                
+              });
+        },
         postNewGame(evt) {  
             fetch('api/game/create.php', {
                 method:'POST',

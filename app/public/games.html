@@ -107,7 +107,7 @@
           <span class="gameName">{{ a.status }}</span><br>
         <form v-on:submit.prevent="postDeleteAssign(a)">
           <button type="submit" class="btn btn-outline-secondary btn-sm">Delete</button>
-        </form>
+        </form><br>
       </div>
 
         <div>
@@ -115,10 +115,10 @@
             <br><hr>
             <span class="refs">Assign a Referee</span><br>
 
-          <label for="refID" class="col-sm-2 col-form-label">Referee: </label>
+          <label for="refID" class="col-sm-2 col-form-label">Referee:</label>
           <select name="refs" id="refID" v-model="refForm.refID">
           <option v-bind:value="r.refID" v-for="r in refs"> {{r.fName}} {{r.lName}}</option> 
-          </select>
+          </select><br>
           <form v-on:submit.prevent="postNewAssign(a)">
             <button type="submit" class="btn btn-outline-secondary btn-sm">Add Referee</button>
           </form>
