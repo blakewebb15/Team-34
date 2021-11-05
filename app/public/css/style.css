@@ -16,11 +16,11 @@ body {}
     margin: 10px 2px;
     padding: 4px;
     border: 1px solid gray;
-    background-color: antiquewhite;
+    background-color: #AAFF55;
 }
 
 .selected {
-    background-color: burlywood;
+    border: 3px solid rgb(2, 2, 2);
 }
 
 .gameField {
@@ -28,5 +28,5 @@ body {}
 }
 
 .gameName{
-    color:#999;
+    color: rgb(143, 133, 133);
 }
