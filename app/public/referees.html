@@ -51,8 +51,7 @@
         <div v-for="s in referees" v-on:click="selectReferee(s)"
           :class="['game', {selected: selectedReferee && s.refID == selectedReferee.refID}]">
           <span class="gameField">{{ s.fName }} {{ s.lName}}</span><br>
-          <span class="gameName">Grade: {{ s.grade}}</span><br>
-          <span class="gameName">Skill: {{ s.skill}}</span><br>
+          <span class="gameName">Grade: {{ s.grade}}, Skill: {{ s.skill}} </span><br>
           <span class="gameName">Age: {{ s.age}}</span><br>
         </div><br><br>
         <span class="refs">Add New Referee</span><br><br>
