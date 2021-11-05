@@ -25,6 +25,7 @@ const gameApp = {
             this.edit = false;
             this.selectedGame = g;
             this.fetchAssignData(g);
+            this.fetchGameData();
             this.fetchRefData();
             // this.games = [];
             // this.fetchOfferData(this.selectedStudent);
@@ -61,7 +62,7 @@ const gameApp = {
             fetch('/api/assignments/?game=' + s.gameID)
             .then( response => response.json() )
             .then( (responseJson) => {
-                console.log(responseJson);
+                console.log( "assign data", responseJson);
                 this.assign = responseJson;
             })
             .catch( (err) => {
@@ -87,7 +88,6 @@ const gameApp = {
         },
         postNewAssign(evt) {
             this.refForm.gameID = this.selectedGame.gameID;        
-            
             console.log("Creating!", this.refForm);
     
             fetch('api/assignments/create.php', {
@@ -134,6 +134,7 @@ const gameApp = {
         },
         postEditGame(evt) {
             this.editForm.gameID= this.selectedGame.gameID; 
+            this.selectedGame.title = this.editForm.title;
 
             
             console.log("Editing!", this.editForm);
@@ -154,7 +155,6 @@ const gameApp = {
                 // reset the form
                 this.edit = false;
                 this.editForm = {};
-                this.selectedGame = null;
               });
         },
         postDeleteGame(o) {  

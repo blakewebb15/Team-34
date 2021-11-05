@@ -6,7 +6,7 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT * FROM referee';
+$sql = 'SELECT * FROM referee ORDER BY lName';
 $vars = [];
 
 // if (isset($_GET['student'])) {
