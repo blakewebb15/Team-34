@@ -9,19 +9,15 @@ $db = DbConnection::getConnection();
 $sql = 'SELECT * FROM referee ORDER BY lName';
 $vars = [];
 
-// if (isset($_GET['student'])) {
-//   // This is an example of a parameterized query
-//   $sql = 'SELECT * FROM student WHERE studentID = ?';
-//   $vars = [ $_GET['student'] ];
-// }
+
 
 $stmt = $db->prepare($sql);
 $stmt->execute($vars);
 
-$students = $stmt->fetchAll();
+$referees = $stmt->fetchAll();
 
 // Step 3: Convert to JSON
-$json = json_encode($students, JSON_PRETTY_PRINT);
+$json = json_encode($referees, JSON_PRETTY_PRINT);
 
 // Step 4: Output
 header('Content-Type: application/json');
