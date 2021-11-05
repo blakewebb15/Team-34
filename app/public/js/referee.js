@@ -5,6 +5,8 @@ const Referees = {
           referees: [],
           refereeForm: {},
           selectedReferee: null,
+          edit: false,
+          editForm: {}
     
         }
     },
@@ -18,10 +20,28 @@ const Referees = {
             if (s == this.selectedReferee) {
                 return;
             }
+            this.edit = false;
             this.selectedReferee = s;
-            this.referees = [];
-            this.fetchRefereeData(this.selectedReferee);
+            this.fetchRefereeData();
         },
+        handleEditReferee(evt) {
+          console.log("Edit button:",evt);
+          if (this.edit) {
+              return;
+          }
+          this.edit = true;
+          this.editForm = Object.assign({}, this.selectedReferee);
+          // this.games = [];
+          // this.fetchOfferData(this.selectedStudent);
+      },
+      handleCancelEdit() {
+          this.edit = false;
+      },
+      editReferee(evt) {
+          console.log("Passed from html",evt);
+          this.postEditReferee(evt);
+      },
+
         fetchRefereeData() {
             fetch('/api/ref/')
             .then( response => response.json() )
@@ -64,8 +84,32 @@ const Referees = {
               this.handleResetEdit;
             });
         },
+        postEditReferee(evt) {
+          this.editForm.refID= this.selectedReferee.refID; 
+
+          
+          console.log("Editing!", this.editForm);
+  
+          fetch('api/ref/update.php', {
+              method:'POST',
+              body: JSON.stringify(this.editForm),
+              headers: {
+                "Content-Type": "application/json; charset=utf-8"
+              }
+            })
+            .then( response => response.json() )
+            .then( json => {
+              console.log("Returned from post:", json);
+              // TODO: test a result was returned!
+              this.referees = json;
+              
+              // reset the form
+              this.edit = false;
+              this.editForm = {};
+            });
+      },
         postDeleteReferee(o) {
-            if (!confirm("Are you sure you want to delete the offer from "+o.Title+"?")) {
+            if (!confirm("Are you sure you want to delete "+o.fName+"?")) {
                 return;
             }
             
@@ -84,6 +128,7 @@ const Referees = {
                 
                 // reset the form  （clean the form)
                 this.refereeForm = {};
+                this.selectedReferee = null;
               });
           
           },
@@ -109,10 +154,6 @@ const Referees = {
           });
       },
 
-      handleEditReferee(referee){
-        this.selectedReferee = referee;
-        this.refereeForm = Object.assign({}, this.selectedReferee);
-      },
       handleResetEdit(){
         this.selectedReferee = null;
         this.refereeForm = {};

@@ -43,72 +43,110 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
  
   <body>
-
+  <div class = "d-flex justify-content-center">
   <div id="refApp" class="container row col-lg-12 text-center">
-      <hr>
-      <table class="table table-hover table-light" >
-          <thead>
-            <span class="refs">Our Referees</span><br><br>
-              <tr>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Grade</th>
-                  <th scope="col">Skill</th>
-                  <th scope="col">Age</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="referee in referees">
-                  <td>{{ referee.fName}}</td>
-                  <td>{{ referee.lName }}</td>
-                  <td>{{ referee.grade }}</td>
-                  <td>{{ referee.skill }}</td>
-                  <td>{{ referee.age }}</td>
-                  <td></td>
-                  <td>
-                  <button type="button" v-on:click="handleEditReferee(referee)" class="btn btn-secondary btn-sm">Edit</button>
-                  <button type="button" v-on:click="postDeleteReferee(referee)" class="btn btn-secondary btn-sm">Delete</button>
-                  </td>
-              </tr>
-              
-          </tbody>
-      </table>
-    
-     
-      <form v-on:submit.prevent="postReferee">
-        <div class="mb-3">
-          <label for="refereefName" class="form-label">First Name</label>
-          <input type="text" v-model="refereeForm.fName"
-           class="form-control" id="refereefName">
-        </div>
-        <div class="mb-3">
-          <label for="refereelName" class="form-label">Last Name</label>
-          <input type="text" v-model="refereeForm.lName" class="form-control" id="refereelName">
-        </div>
-        <div class="mb-3">
-          <label for="refereegrade" class="form-label">Grade</label>
-          <input type="text" v-model="refereeForm.grade" class="form-control" id="refereegrade">
-        </div>
-        <div class="mb-3">
-          <label for="refereeskill" class="form-label">Skill</label>
-          <input type="text" v-model="refereeForm.skill" class="form-control" id="refereeskill">
-        </div>
-        <div class="mb-3">
-          <label for="refereeage" class="form-label">Age</label>
-          <input type="text" v-model="refereeForm.age" class="form-control" id="refereeage">
-        </div>
-        <button type="submit" class="btn btn-primary">{{ selectedReferee === null ? "Add" : "Edit"}} Referee</button>
-        <button type="button" class="btn btn-outline-secondary"
-          v-if="selectedReferee"
-          v-on:click="handleResetEdit">Cancel Edit</button>
-      </form>
+    <!-- <div class="row align-items-start"> -->
+      <div class="col col-4">
+        <span class="refs">Current Referee Roster</span><br><br>
+        <div v-for="s in referees" v-on:click="selectReferee(s)"
+          :class="['game', {selected: selectedReferee && s.refID == selectedReferee.refID}]">
+          <span class="gameField">{{ s.fName }} {{ s.lName}}</span><br>
+          <span class="gameName">Grade: {{ s.grade}}</span><br>
+          <span class="gameName">Skill: {{ s.skill}}</span><br>
+          <span class="gameName">Age: {{ s.age}}</span><br>
+        </div><br><br>
+        <span class="refs">Add New Referee</span><br><br>
 
+        <form class="bg-light" v-on:submit.prevent="postNewReferee">        
+          <div class="form-item-format row mb-2">
+            <label for="refereefName" class="form-label">First Name</label>
+            <input type="text" v-model="refereeForm.fName"
+             class="form-control" id="refereefName">
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="refereelName" class="form-label">Last Name</label>
+            <input type="text" v-model="refereeForm.lName" class="form-control" id="refereelName">
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="refereegrade" class="form-label">Grade</label>
+            <input type="text" v-model="refereeForm.grade" class="form-control" id="refereegrade">
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="refereeskill" class="form-label">Skill</label>
+            <input type="number" v-model="refereeForm.skill" class="form-control" id="refereeskill">
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="refereeage" class="form-label">Age</label>
+            <input type="number" v-model="refereeForm.age" class="form-control" id="refereeage">
+          </div>
+          <button type="submit" class="btn btn-primary">Add Referee</button>
+        </form>
+      </div>
+
+  
+
+
+      <div class = "col" v-if="selectedReferee">
+        <h3> Assignments for {{selectedReferee.fName}} {{selectedReferee.lName}}</h3><br>
+        <table class="table table-hover table-light">
+              <tbody>
+                <tr>
+                    <th scope="col">{{selectedReferee.fName}} {{selectedReferee.lName}}</th>
+                    <th scope="col">Grade: {{selectedReferee.grade}}</th>
+                    <th scope="col">Skill: {{selectedReferee.skill}}</th>
+                    <th scope="col">Age: {{selectedReferee.age}}</th>
+                    <th> <button type="button" v-on:click="handleEditReferee(selectedReferee)" class="btn btn-secondary btn-sm">Edit</button>
+                      <button type="button" v-on:click="postDeleteReferee(selectedReferee)" class="btn btn-secondary btn-sm">Delete</button> </th>
+                </tr>
+
+              </tbody>
+          </table>
+      
+     
+      <div v-if="edit">
+        <form class="bg-light" v-on:submit.prevent="editReferee">
+          <div class="form-item-format row mb-2">
+            <label for="fName" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="editForm.fName" class="form-control" placeholder="fName" id="refereefName">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="lName" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="editForm.lName" class="form-control" placeholder="refereelName" id="lName">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2 mb-2">
+            <label for="grade" class="col-sm-2 col-form-label">Grade</label>
+            <div class="col-sm-10">
+                <input type="text" v-model="editForm.grade" class="form-control" placeholder="grade" id="grade">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="skill" class="col-sm-2 col-form-label">Skill</label>
+            <div class="col-sm-10">
+              <input type="number" v-model="editForm.skill" class="form-control" placeholder="refereeskill" id="skill">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="age" class="col-sm-2 col-form-label">Age</label>
+            <div class="col-sm-10">
+              <input type="number" v-model="editForm.age" class="form-control" placeholder="refereeage" id="age">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" v-on:click= "handleCancelEdit()" class="btn btn-outline-secondary btn-small">Cancel</button>
+          </form><br><br>
+        </div>
+      </div>
+
+</div>
 </div>
 <img src="img/ISRA_referees.jpg" alt="referees" class="image-responsive" height="500 px">
 
 <script src="./js/referee.js"></script>
 </body>
-
 <footer>
   <div class="container mt-auto py-3 bg-dark footer">
       <span> Team-34 Inc. </span>
