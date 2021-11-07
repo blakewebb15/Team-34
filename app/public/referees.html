@@ -104,6 +104,23 @@
 
               </tbody>
           </table>
+        
+          <div class = "assign" v-for="a in assign" v-if="edit != true">
+            <div>
+            <span class="gameField">{{ a.title }}</span><br>
+            <span class="gameName">{{ a.status }}</span><br>
+            <label for="status" class="col-sm-2 col-form-label">Status:</label>
+            <select id="a.status" v-model="refForm.status">
+            <option v-bind:value= "a.status" selected> </option>
+            <option value = "Accepted"> Accept </option>
+            <option value = "Tenative"> Tenative </option>
+            <option value = "Declined"> Decline </option>
+            </select><br>
+            <form v-on:submit.prevent="postNewAssign(a)">
+              <button type="submit" class="btn btn-outline-secondary btn-sm">Save</button>
+            </form>
+          </div>
+          </div> 
       
      
       <div v-if="edit">

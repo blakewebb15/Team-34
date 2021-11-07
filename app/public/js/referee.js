@@ -6,7 +6,9 @@ const Referees = {
           refereeForm: {},
           selectedReferee: null,
           edit: false,
-          editForm: {}
+          editForm: {},
+          assign: [],
+          refForm: {}
     
         }
     },
@@ -23,6 +25,7 @@ const Referees = {
             this.edit = false;
             this.selectedReferee = s;
             this.fetchRefereeData();
+            this.fetchAssignData(s);
         },
         handleEditReferee(evt) {
           console.log("Edit button:",evt);
@@ -153,6 +156,70 @@ const Referees = {
             this.refereeForm = {};
           });
       },
+      postNewAssign(g) {
+        console.log("This is the ref form", g);
+        this.refForm.assignmentID = g.assignmentID;
+        this.refForm.refID = g.refID;
+        console.log("Creating!", this.refForm);
+
+        if (this.refForm.status == "Declined"){
+          fetch('api/assignments/deleteRefAssign.php', {
+            method:'POST',
+            body: JSON.stringify(this.refForm),
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+            }
+          })
+          .then( response => response.json() )
+          .then( json => {
+            console.log("Returned from post:", json);
+            // TODO: test a result was returned!
+            this.assign = json;
+            this.refForm = {};
+            
+            // reset the form
+          })
+          .catch( err => {
+            alert("Something went horribly wrong.");
+          });
+        }
+        else {
+          fetch('api/assignments/updateRefAssign.php', {
+              method:'POST',
+              body: JSON.stringify(this.refForm),
+              headers: {
+                "Content-Type": "application/json; charset=utf-8"
+              }
+            })
+            .then( response => response.json() )
+            .then( json => {
+              console.log("Returned from post:", json);
+              // TODO: test a result was returned!
+              this.assign = json;
+              this.refForm = {};
+              
+              // reset the form
+            })
+            .catch( err => {
+              alert("Something went horribly wrong.");
+            });
+        }
+      },
+      fetchAssignData(s) {
+        console.log("Fetching offer data for ", s);
+        fetch('/api/assignments/refAssign.php/?ref=' + s.refID)
+        .then( response => response.json() )
+        .then( (responseJson) => {
+            console.log( "assign data", responseJson);
+            this.assign = responseJson;
+        })
+        .catch( (err) => {
+            console.error(err);
+        })
+        .catch( (error) => {
+            console.error(error);
+        });
+    },
 
       handleResetEdit(){
         this.selectedReferee = null;

@@ -28,6 +28,13 @@
     border: 1px solid gray;
     background-color: #AAFF55;
 }
+.assign {
+    margin: 10px 2px;
+    padding: 4px;
+    border: 1px solid gray;
+    background-color: #ffffff;
+    width: 400px;
+}
 
 .selected {
     border: 3px solid rgb(2, 2, 2);
