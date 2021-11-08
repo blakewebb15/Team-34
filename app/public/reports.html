@@ -66,7 +66,6 @@
             <button type="submit" class="btn btn-outline-secondary btn-sm">Generate Report</button>
           </form>
         </div>
-<<<<<<< Updated upstream
 
 
        <div v-if="reportOne"> 
@@ -88,8 +87,6 @@
         </table>
         <p><a class = "reports" v-bind:href="'/api/reports/?ref=' + selectedReferee + '&startDate=' + refereeForm.startDate + '&endDate=' + refereeForm.endDate + '&format=csv'" download>Export as CSV</a></p><hr>
       </div>
- </div>
-=======
         <p><a v-bind:href="'/api/reports/?ref=' + selectedReferee + '&format=csv'" download>Export as CSV</a></p>
     
         <hr>
@@ -114,7 +111,7 @@
                   <p><a href="/api/reports/unassigned.php/?&format=csv" download>Export as CSV</a></p>
             </table>
     </div>
->>>>>>> Stashed changes
+  </div>
 
     <script src="./js/reports.js"></script>
 </body>

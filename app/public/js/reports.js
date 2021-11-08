@@ -5,11 +5,8 @@ const Reports = {
         refereeForm: {},
         selectedReferee: null,
         refs: [],
-<<<<<<< Updated upstream
-        reportOne: false
-=======
+        reportOne: false,
         game: []
->>>>>>> Stashed changes
       }
     },
     methods: {
