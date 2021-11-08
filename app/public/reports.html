@@ -55,6 +55,7 @@
           <select name="refs" id="refID" v-model="refereeForm.refID" class = "btn btn-secondary dropdown-toggle">
           <option v-bind:value="r.refID" v-for="r in refs">{{r.fName}} {{r.lName}}</option>
           </select><br>
+          <div class = "date">
           <div class="form-group">
             <label for="startDate" class="form-label">From </label>
             <input type="date" v-model="refereeForm.startDate" class="form-control" id="refForm.startDate">
@@ -62,7 +63,7 @@
           <div class="form-group">
             <label for="endDate" class="form-label">To </label>
             <input type="date" v-model="refereeForm.endDate" class="form-control" id="refForm.endDate">
-          </div><br>
+          </div></div><br>
             <button type="submit" class="btn btn-outline-secondary btn-sm">Generate Report</button>
           </form>
         </div>

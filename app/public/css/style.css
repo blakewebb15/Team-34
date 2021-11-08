@@ -92,3 +92,7 @@
     margin: auto !important;
     padding-top: .5cm;
   }
+
+  .date{
+    width: 400px;
+  }
