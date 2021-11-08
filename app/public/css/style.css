@@ -36,7 +36,8 @@
     padding: 4px;
     border: 1px solid gray;
     background-color: #ffffff;
-    width: 400px;
+    width: 350px;
+    margin-left: 26%;
 }
 
 .selected {

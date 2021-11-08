@@ -6,6 +6,7 @@ const Reports = {
         selectedReferee: null,
         refs: [],
         reportOne: false,
+        reportTwo: false,
         game: []
       }
     },
@@ -48,6 +49,7 @@ const Reports = {
             .then( (responseJson) => {
                 console.log(responseJson);
                 this.game = responseJson;
+                this.reportTwo = true;
             })
             .catch( (err) => {
                 console.error(err);
@@ -59,7 +61,6 @@ const Reports = {
     },
     created() {
         this.fetchRefData();
-        this.fetchGameData();
     }
   }
   

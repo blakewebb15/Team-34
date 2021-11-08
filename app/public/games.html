@@ -107,12 +107,12 @@
               </tr>
             </thead>
       </table>
-      <div v-for="a in assign" v-if="edit != true">
+      <div class = "assign" v-for="a in assign" v-if="edit != true">
           <span class="gameField">{{ a.fName }} {{ a.lName }}</span><br>
           <span class="gameName">{{ a.status }}</span><br>
         <form v-on:submit.prevent="postDeleteAssign(a)">
           <button type="submit" class="btn btn-outline-secondary btn-sm">Delete</button>
-        </form><br>
+        </form>
       </div>
 
         <div>
@@ -170,8 +170,6 @@
       
     
   
-      
-      <img src="img/ISRA_games.jfif" alt="game" class="image-responsive" height="500 px">
 
     </div>
 
