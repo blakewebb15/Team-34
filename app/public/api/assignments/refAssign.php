@@ -15,7 +15,7 @@ if (isset($_GET['ref'])) {
   //NOT THIS WAY
   // $sql = 'SELECT * FROM offer WHERE studentId = ' . $_GET['student'];
 
-  $vars = [ $_GET['ref'] ];
+  $vars = [ $_GET['ref'],$_POST['startDate'],$_POST['endDate'] ];
 }
 
 $stmt = $db->prepare($sql);

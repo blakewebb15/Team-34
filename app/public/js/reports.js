@@ -5,7 +5,8 @@ const Reports = {
         games: [],
         refereeForm: {},
         selectedReferee: null,
-        refs: []
+        refs: [],
+        reportOne: false
       }
     },
     methods: {
@@ -13,10 +14,12 @@ const Reports = {
             this.selectedReferee = this.refereeForm.refID
             console.log("SelectedRef", this.selectedReferee);        
             console.log("Fetching offer data for ", this.refereeForm.refID);
-            fetch('/api/reports/?ref=' + this.refereeForm.refID)
+            fetch('/api/reports/?ref=' + this.refereeForm.refID + '&startDate=' + this.refereeForm.startDate + '&endDate=' + this.refereeForm.endDate)
             .then( response => response.json() )
             .then( (responseJson) => {
                 console.log( "assign data", responseJson);
+                this.games = responseJson;
+                this.reportOne = true;
             })
             .catch( (err) => {
                 console.error(err);

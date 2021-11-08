@@ -19,26 +19,26 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="./index.html"><img src="img/favicon-32x32.png"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <a class="navbar-brand" href="./home.html"><img src="img/favicon-32x32.png"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="./index.html">Finalized Games</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="./referees.html">Our Referees</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="./games.html">Our Games</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="./reports.html">Your Reports</a>
-        </li>
+          <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="./home.html">Home</a>
+          </li>
+      <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="./referees.html">Our Referees</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="./games.html">Our Games</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="./reports.html">Reports</a>
+    </li>
       </ul>
-    </div>
+  </div>
   </div>
 </nav>
 
@@ -47,22 +47,46 @@
  
   <body>
 
-  <div id="repsApp" class="container row col-lg-12 text-center">
-      <hr>
-        <div>
-            <br><hr>
+  <div id="repsApp">
+        <div class = "reports">
+          <form v-on:submit.prevent="fetchGamesData()">
             <span class="refs">Select a Referee</span><br>
-
-          <label for="refID" class="col-sm-2 col-form-label">Referee:</label>
-          <select name="refs" id="refID" v-model="refereeForm.refID">
+          <label for="refID" class="col-sm-2 col-form-label">Referee</label>
+          <select name="refs" id="refID" v-model="refereeForm.refID" class = "btn btn-secondary dropdown-toggle">
           <option v-bind:value="r.refID" v-for="r in refs">{{r.fName}} {{r.lName}}</option>
           </select><br>
-          <form v-on:submit.prevent="fetchGamesData()">
+          <div class="form-group">
+            <label for="startDate" class="form-label">From </label>
+            <input type="date" v-model="refereeForm.startDate" class="form-control" id="refForm.startDate">
+          </div>
+          <div class="form-group">
+            <label for="endDate" class="form-label">To </label>
+            <input type="date" v-model="refereeForm.endDate" class="form-control" id="refForm.endDate">
+          </div><br>
             <button type="submit" class="btn btn-outline-secondary btn-sm">Generate Report</button>
           </form>
         </div>
-        <p><a v-bind:href="'/api/reports/?ref=' + selectedReferee + '&format=csv'" download>Export as CSV</a></p>
-    
+
+
+       <div v-if="reportOne"> 
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Field</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+            <tbody>
+                <tr v-for="g in games">
+                    <td>{{ g.title }}</td>
+                    <td>{{ g.field }}</td>
+                    <td>{{ g.gDate }} at {{g.time}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><a class = "reports" v-bind:href="'/api/reports/?ref=' + selectedReferee + '&startDate=' + refereeForm.startDate + '&endDate=' + refereeForm.endDate + '&format=csv'" download>Export as CSV</a></p><hr>
+      </div>
  </div>
 
     <script src="./js/reports.js"></script>

@@ -13,12 +13,12 @@ if (isset($_GET['ref'])) {
   $sql = 'SELECT g.title, g.field, g.gDate, g.time
   FROM game AS g, assignment AS a, referee AS r
   WHERE g.gameID = a.gameID
-  AND r.refID = a.refID and a.refID = ?';
+  AND r.refID = a.refID and a.refID = ? and g.gDate BETWEEN ? and ?';
 
   //NOT THIS WAY
   // $sql = 'SELECT * FROM offer WHERE studentId = ' . $_GET['student'];
 
-  $vars = [ $_GET['ref'] ];
+  $vars = [ $_GET['ref'],$_GET['startDate'],$_GET['endDate']];
 }
 
 $stmt = $db->prepare($sql);
