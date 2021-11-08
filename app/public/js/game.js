@@ -135,6 +135,10 @@ const gameApp = {
         postEditGame(evt) {
             this.editForm.gameID= this.selectedGame.gameID; 
             this.selectedGame.title = this.editForm.title;
+            this.selectedGame.field = this.editForm.field;
+            this.selectedGame.gDate = this.editForm.gDate;
+            this.selectedGame.time = this.editForm.time;
+            this.selectedGame.level = this.editForm.level;
 
             
             console.log("Editing!", this.editForm);
