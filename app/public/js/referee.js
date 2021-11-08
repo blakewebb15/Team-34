@@ -26,6 +26,7 @@ const Referees = {
             this.selectedReferee = s;
             this.fetchRefereeData();
             this.fetchAssignData(s);
+            this.refForm = {};
         },
         handleEditReferee(evt) {
           console.log("Edit button:",evt);
