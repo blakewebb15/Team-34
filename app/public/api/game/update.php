@@ -31,7 +31,7 @@ $db = DbConnection::getConnection();
 // Step 2: Create & run the query
 // Note the use of parameterized statements to avoid injection
 $stmt = $db->prepare(
-  'UPDATE game SET title = ?, field = ?, time = ?, gDate = ?
+  'UPDATE game SET title = ?, field = ?, time = ?, gDate = ?, level = ?
   WHERE gameID= ?'
 );
 
@@ -40,6 +40,7 @@ $stmt->execute([
   $_POST['field'],
   $_POST['time'],
   $_POST['gDate'],
+  $_POST['level'],
   $_POST['gameID']
 ]);
 

@@ -58,7 +58,8 @@
         :class="['game', {selected: selectedGame && g.gameID == selectedGame.gameID}]">
           <span class="gameField">{{ g.title }}</span><br>
           <span class="gameName">{{ g.field }}</span><br>
-          <span class="gameName">{{ prettyData(g.gDate) }} at {{g.time}}</span>
+          <span class="gameName">{{ prettyData(g.gDate) }} at {{g.time}}</span><br>
+          <span class="gameName">Game-level: {{ g.level }}</span><br>
         </div><br><br>
 
         <span class="refs">Schedule New Game</span><br><br>
@@ -88,6 +89,15 @@
               <input type="text" v-model="gameForm.time" class="form-control" placeholder="Time" id="time">
             </div>
           </div>
+          <div class="form-item-format row mb-2">
+            <label for="level" class="col-sm-2 col-form-label">Level</label>
+            <div class="col-sm-10">
+              <select id="level" placeholder="Level" class="form-control" v-model="gameForm.level">
+                <option value = "Low"> Low </option>
+                <option value = "High"> High </option>
+              </select>
+            </div>
+          </div>
           <button type="submit" class="btn btn-primary">Add Game</button>
           </form><br><br>
       </div>
@@ -102,6 +112,7 @@
                   <th scope="col">{{ selectedGame.title }}</th>
                   <th scope="col">{{ selectedGame.field }}</th>
                   <th scope="col">{{ prettyData(selectedGame.gDate) }} at {{ selectedGame.time }}</th>
+                  <th scope="col">Level: {{ selectedGame.level }}</th>
                   <th><button type="button" v-on:click= "handleEditGame(selectedGame)" class="btn btn-outline-secondary btn-small">Edit</button>
                     <button type="button" v-on:click= "postDeleteGame(selectedGame)" class="btn btn-outline-secondary btn-small">Delete</button></th>
               </tr>
@@ -158,6 +169,15 @@
             <label for="time" class="col-sm-2 col-form-label">Time</label>
             <div class="col-sm-10">
               <input type="text" v-model="editForm.time" class="form-control" placeholder="Time" id="time">
+            </div>
+          </div>
+          <div class="form-item-format row mb-2">
+            <label for="level" class="col-sm-2 col-form-label">Level</label>
+            <div class="col-sm-10">
+              <select id="level" class="form-control" placeholder="Level" v-model="editForm.level">
+                <option value = "Low"> Low </option>
+                <option value = "High"> High </option>
+              </select>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
