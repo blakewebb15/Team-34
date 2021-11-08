@@ -89,7 +89,12 @@ const Referees = {
             });
         },
         postEditReferee(evt) {
-          this.editForm.refID= this.selectedReferee.refID; 
+          this.editForm.refID= this.selectedReferee.refID;
+          this.selectedReferee.fName = this.editForm.fName;
+          this.selectedReferee.lName = this.editForm.lName;
+          this.selectedReferee.grade = this.editForm.grade;
+          this.selectedReferee.skill = this.editForm.skill;
+          this.selectedReferee.age = this.editForm.age;     
 
           
           console.log("Editing!", this.editForm);
