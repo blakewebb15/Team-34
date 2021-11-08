@@ -66,6 +66,7 @@
             <button type="submit" class="btn btn-outline-secondary btn-sm">Generate Report</button>
           </form>
         </div>
+<<<<<<< Updated upstream
 
 
        <div v-if="reportOne"> 
@@ -88,6 +89,32 @@
         <p><a class = "reports" v-bind:href="'/api/reports/?ref=' + selectedReferee + '&startDate=' + refereeForm.startDate + '&endDate=' + refereeForm.endDate + '&format=csv'" download>Export as CSV</a></p><hr>
       </div>
  </div>
+=======
+        <p><a v-bind:href="'/api/reports/?ref=' + selectedReferee + '&format=csv'" download>Export as CSV</a></p>
+    
+        <hr>
+            <table id="" class="table table-hover table-light" >
+                <thead>
+                    <tr>
+                        <th scope="col">Game</th>
+                        <th scope="col">Field</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="g in game">
+                      <td>{{ g.title }}</td>
+                      <td>{{ g.field }}</td>
+                      <td>{{ g.gDate }} at {{ g.time }}</td>
+                    </tr>         
+                  </tbody>
+                  <form v-on:submit.prevent="fetchGameData()">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Generate Report</button>
+                  </form>
+                  <p><a href="/api/reports/unassigned.php/?&format=csv" download>Export as CSV</a></p>
+            </table>
+    </div>
+>>>>>>> Stashed changes
 
     <script src="./js/reports.js"></script>
 </body>

@@ -2,11 +2,14 @@
 const Reports = {
     data() {
       return {
-        games: [],
         refereeForm: {},
         selectedReferee: null,
         refs: [],
+<<<<<<< Updated upstream
         reportOne: false
+=======
+        game: []
+>>>>>>> Stashed changes
       }
     },
     methods: {
@@ -41,10 +44,25 @@ const Reports = {
             .catch( (error) => {
                 console.error(error);
             });
+        },
+        fetchGameData() {
+            fetch('/api/reports/unassigned.php')
+            .then( response => response.json() )
+            .then( (responseJson) => {
+                console.log(responseJson);
+                this.game = responseJson;
+            })
+            .catch( (err) => {
+                console.error(err);
+            })
+            .catch( (error) => {
+                console.error(error);
+            });
         }
     },
     created() {
         this.fetchRefData();
+        this.fetchGameData();
     }
   }
   
